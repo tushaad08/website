@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techfest 2026 | IIT Bombay</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Inter:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #03030c;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        #webgl-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .glass-panel {
+            background: rgba(10, 10, 25, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 243, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .glow-text {
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
+        }
+        .glow-border:hover {
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
+            border-color: rgba(0, 243, 255, 0.6);
+        }
+    </style>
+</head>
+<body class="selection:bg-cyan-500 selection:text-black">
+
+    <!-- Three.js Background Canvas -->
+    <div id="webgl-container"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-cyan-500/20 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-lg bg-cyan-500 flex items-center justify-center font-orbitron font-black text-black text-xl">T</div>
+            <span class="font-orbitron font-bold tracking-wider text-lg text-cyan-400">TECHFEST '26</span>
+        </div>
+        <div class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide text-gray-300">
+            <a href="#about" class="hover:text-cyan-400 transition">AETHER</a>
+            <a href="#events" class="hover:text-cyan-400 transition">COMPETITIONS</a>
+            <a href="#speakers" class="hover:text-cyan-400 transition">KEYNOTES</a>
+            <a href="#accommodation" class="hover:text-cyan-400 transition">STAY</a>
+        </div>
+        <a href="#register" class="px-5 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-orbitron font-bold text-xs tracking-wider uppercase hover:opacity-95 transition shadow-[0_0_15px_rgba(0,243,255,0.4)]">
+            Register Free
+        </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex flex-col items-center justify-center text-center px-4">
+        <div class="glass-panel p-8 md:p-12 rounded-3xl max-w-4xl mx-auto border border-cyan-500/30">
+            <div class="inline-block px-4 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-500/40 text-cyan-400 text-xs font-orbitron tracking-widest mb-6">
+                IIT BOMBAY • 30TH EDITION
+            </div>
+            <h1 class="text-4xl md:text-7xl font-black font-orbitron tracking-tight mb-6 glow-text text-white">
+                AN AETHERIAL <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">RENAISSANCE</span>
+            </h1>
+            <p class="text-gray-300 text-base md:text-lg max-w-2xl mx-auto mb-8 font-light">
+                Step into Asia’s largest science and technology festival. Experience quantum robotics, advanced AI paradigms, and global engineering showdowns.
+            </p>
+            
+            <!-- Countdown Timer -->
+            <div id="countdown" class="grid grid-cols-4 gap-3 max-w-md mx-auto mb-8 font-orbitron text-center">
+                <div class="glass-panel p-3 rounded-xl border-cyan-500/20"><span id="days" class="text-2xl font-bold text-cyan-400 block">00</span><span class="text-[10px] text-gray-400">DAYS</span></div>
+                <div class="glass-panel p-3 rounded-xl border-cyan-500/20"><span id="hours" class="text-2xl font-bold text-cyan-400 block">00</span><span class="text-[10px] text-gray-400">HOURS</span></div>
+                <div class="glass-panel p-3 rounded-xl border-cyan-500/20"><span id="mins" class="text-2xl font-bold text-cyan-400 block">00</span><span class="text-[10px] text-gray-400">MINS</span></div>
+                <div class="glass-panel p-3 rounded-xl border-cyan-500/20"><span id="secs" class="text-2xl font-bold text-cyan-400 block">00</span><span class="text-[10px] text-gray-400">SECS</span></div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#events" class="px-8 py-4 rounded-xl bg-cyan-500 text-black font-orbitron font-bold tracking-wider hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,243,255,0.5)]">
+                    EXPLORE EVENTS
+                </a>
+                <a href="#accommodation" class="px-8 py-4 rounded-xl glass-panel text-cyan-400 font-orbitron font-bold tracking-wider hover:bg-cyan-950/40 transition border border-cyan-500/40">
+                    BOOK STAY (₹3,299)
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Competitions Section -->
+    <section id="events" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-black font-orbitron mb-4 text-white">SIGNATURE COMPETITIONS</h2>
+            <p class="text-gray-400 max-w-xl mx-auto">Battle tested engineering arenas with massive global participation pools and CES direct pathways.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-panel p-8 rounded-2xl transition duration-300 glow-border group">
+                <div class="w-12 h-12 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-orbitron font-bold mb-6 group-hover:scale-110 transition">01</div>
+                <h3 class="text-xl font-bold font-orbitron mb-3 text-white">ROBOWARS</h3>
+                <p class="text-gray-400 text-sm mb-6 leading-relaxed">The ultimate heavyweight steel combat where custom mechanical constructs clash for absolute supremacy.</p>
+                <span class="text-cyan-400 text-xs font-orbitron tracking-wider flex items-center gap-2">PRIZE POOL WORTH LAKHS →</span>
+            </div>
+
+            <div class="glass-panel p-8 rounded-2xl transition duration-300 glow-border group">
+                <div class="w-12 h-12 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-orbitron font-bold mb-6 group-hover:scale-110 transition">02</div>
+                <h3 class="text-xl font-bold font-orbitron mb-3 text-white">FULL THROTTLE</h3>
+                <p class="text-gray-400 text-sm mb-6 leading-relaxed">High-speed autonomous and RC racing machines navigating complex physical endurance circuits.</p>
+                <span class="text-cyan-400 text-xs font-orbitron tracking-wider flex items-center gap-2">ADVANCED TELEMETRY →</span>
+            </div>
+
+            <div class="glass-panel p-8 rounded-2xl transition duration-300 glow-border group">
+                <div class="w-12 h-12 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-orbitron font-bold mb-6 group-hover:scale-110 transition">03</div>
+                <h3 class="text-xl font-bold font-orbitron mb-3 text-white">TECHFEST WORLD MUN</h3>
+                <p class="text-gray-400 text-sm mb-6 leading-relaxed">Global diplomatic simulations addressing critical tech governance frameworks and international policy.</p>
+                <span class="text-cyan-400 text-xs font-orbitron tracking-wider flex items-center gap-2">DEC 17-18 SESSIONS →</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-cyan-500/20 py-12 text-center text-sm text-gray-500 glass-panel">
+        <p class="font-orbitron text-cyan-400 mb-2">TECHFEST 2026 • IIT BOMBAY</p>
+        <p>16–18 December 2026 • Powai, Mumbai. Entry Free with Valid ID.</p>
+    </footer>
+
+    <!-- Three.js Interactive Animation Script -->
+    <script>
+        // Setup Scene, Camera, Renderer
+        const container = document.getElementById('webgl-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        // Create Torus Particle Cloud
+        const geometry = new THREE.TorusGeometry(10, 3, 30, 200);
+        const material = new THREE.PointsMaterial({
+            size: 0.05,
+            color: 0x00f3ff,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+        const torusParticles = new THREE.Points(geometry, material);
+        scene.add(torusParticles);
+
+        // Add ambient particles background
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 1500;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 50;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.03,
+            color: 0x3b82f6,
+            transparent: true,
+            opacity: 0.5
+        });
+        const starField = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(starField);
+
+        camera.position.z = 22;
+
+        // Mouse interaction tracking
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - window.innerWidth / 2) * 0.001;
+            mouseY = (event.clientY - window.innerHeight / 2) * 0.001;
+        });
+
+        // Animation Loop
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            targetX = targetX + (mouseX - targetX) * 0.05;
+            targetY = targetY + (mouseY - targetY) * 0.05;
+
+            torusParticles.rotation.x = elapsedTime * 0.15 + targetY;
+            torusParticles.rotation.y = elapsedTime * 0.2 + targetX;
+            starField.rotation.y = elapsedTime * 0.03;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Window resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Countdown Timer Logic (Target: Dec 16, 2026)
+        const targetDate = new Date('December 16, 2026 09:00:00').getTime();
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                document.getElementById('days').innerText = Math.floor(difference / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById('hours').innerText = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById('mins').innerText = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById('secs').innerText = Math.floor((difference % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
